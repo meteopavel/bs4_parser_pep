@@ -1,0 +1,8 @@
+[flake8]
+max-line-length = 79
+disable-noqa = True
+paths =
+  ./src
+max-complexity = 10
+exclude =
+  tests
