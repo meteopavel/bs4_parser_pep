@@ -25,7 +25,8 @@ pip install -r requirements.txt
 
 ## Использование
 ```python
-python src/main.py [-h] [-c] [-o {pretty,file}] {whats-new,latest-versions,download,pep}
+cd src
+python main.py [-h] [-c] [-o {pretty,file}] {whats-new,latest-versions,download,pep}
 ```
 
 ## Автор
