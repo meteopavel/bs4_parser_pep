@@ -3,7 +3,7 @@ import datetime as dt
 
 from prettytable import PrettyTable
 
-from constants import BASE_DIR
+from constants import BASE_DIR, DirConstants, LiteralConstants
 
 
 def default_output(results, *args):
@@ -12,10 +12,12 @@ def default_output(results, *args):
 
 
 def file_output(results: list, cli_args, encoding='utf-8'):
-    results_dir = BASE_DIR / 'results'
+    results_dir = BASE_DIR / DirConstants.RESULTS_DIR
     results_dir.mkdir(exist_ok=True)
     parser_mode = cli_args.mode
-    current_time = dt.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    current_time = dt.datetime.now().strftime(
+        LiteralConstants.FILE_DATETIME_FORMAT
+    )
     filename = f'{parser_mode}_{current_time}.csv'
     filepath = results_dir / filename
     with open(filepath, 'w', encoding=encoding) as file:
@@ -31,8 +33,8 @@ def pretty_output(results, *args):
 
 
 OUTPUT_MODES = {
-    'pretty': pretty_output,
-    'file': file_output,
+    LiteralConstants.PRETTY_OUTPUT_MODE: pretty_output,
+    LiteralConstants.FILE_OUTPUT_MODE: file_output,
     None: default_output
 }
 

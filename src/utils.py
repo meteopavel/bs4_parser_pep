@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from exceptions import ParserFindTagException
 
 
@@ -12,3 +13,7 @@ def get_response(session, url, encoding='utf-8'):
     response = session.get(url)
     response.encoding = encoding
     return response
+
+
+def get_soup(session, url, parser='lxml'):
+    return BeautifulSoup(get_response(session, url).text, parser)
