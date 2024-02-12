@@ -1,5 +1,6 @@
 import logging
 import re
+import requests
 from collections import defaultdict
 from urllib.parse import urljoin
 
@@ -33,10 +34,9 @@ def whats_new(session):
                  find_tag(soup, 'h1').text,
                  find_tag(soup, 'dl').text.replace('\n', ' ').strip())
             )
-        except ConnectionError as error:
+        except requests.RequestException as error:
             logger_stack.append(error)
-    for exception in logger_stack:
-        logging.error(exception)
+    [logging.error(exception) for exception in logger_stack]
     return result
 
 
@@ -109,10 +109,9 @@ def pep(session):
                          .get(table_statuses[num])}'''
                 )
             status_codes[page_status] += 1
-        except ConnectionError as error:
+        except requests.RequestException as error:
             logger_stack.append(error)
-    for exception in logger_stack:
-        logging.error(exception)
+    [logging.error(exception) for exception in logger_stack]
     logging.warning('\n'.join(mismatches))
     return [
         ('Статус', 'Количество'),
